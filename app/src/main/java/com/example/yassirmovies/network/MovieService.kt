@@ -1,6 +1,7 @@
 package com.example.yassirmovies.network
 
 import com.example.yassirmovies.data.Movie
+import com.example.yassirmovies.data.MovieConfig
 import com.example.yassirmovies.data.MovieList
 import retrofit2.Call
 import retrofit2.http.GET
@@ -16,4 +17,6 @@ interface MovieService {
     fun getMovieDetails(@Path("movie_id") movieId: Int,
                         @Query("api_key") apiKey: String): Call<Movie>
 
+    @GET("configuration")
+    fun getMovieConfig(@Query("api_key") apiKey: String): Call<MovieConfig>
 }
