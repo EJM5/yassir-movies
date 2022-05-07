@@ -9,3 +9,8 @@ data class Movie(val id: Int,
                  @SerializedName("poster_path") val imageUrl: String?,
                  @SerializedName("release_date") val releaseDate: String,
                  @SerializedName("original_title") val title: String)
+
+data class MovieConfig(val images: Image)
+
+data class Image(@SerializedName("base_url") val baseUrl: String,
+                 @SerializedName("poster_sizes") val posterSizes: List<String>)

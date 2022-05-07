@@ -2,7 +2,9 @@ package com.example.yassirmovies.repositories
 
 import androidx.lifecycle.MutableLiveData
 import com.example.yassirmovies.BuildConfig
+import com.example.yassirmovies.data.Image
 import com.example.yassirmovies.data.Movie
+import com.example.yassirmovies.data.MovieConfig
 import com.example.yassirmovies.data.MovieList
 import com.example.yassirmovies.network.MovieService
 import retrofit2.Call
@@ -40,7 +42,28 @@ class MovieRepositoryImpl @Inject constructor(private val movieService: MovieSer
                 if (response.isSuccessful) {
                     liveData.postValue(response.body())
                 } else {
+                    // TODO: implement on failure
                     liveData.postValue(response.body())
+                }
+            }
+        })
+    }
+
+    override fun getMovieConfig(liveData: MutableLiveData<MovieConfig>) {
+        val defaultBaseUrl = "https://image.tmdb.org/t/p"
+        val defaultPosterSizes = listOf("/w500")
+
+        val call: Call<MovieConfig> = movieService.getMovieConfig(BuildConfig.API_KEY)
+        call.enqueue(object : Callback<MovieConfig> {
+            override fun onFailure(call: Call<MovieConfig>, t: Throwable) {
+                liveData.postValue(MovieConfig(Image(baseUrl = defaultBaseUrl, posterSizes = defaultPosterSizes)))
+            }
+
+            override fun onResponse(call: Call<MovieConfig>, response: Response<MovieConfig>) {
+                if (response.isSuccessful) {
+                    liveData.postValue(response.body())
+                } else {
+                    liveData.postValue(MovieConfig(Image(baseUrl = defaultBaseUrl, posterSizes = defaultPosterSizes)))
                 }
             }
         })
