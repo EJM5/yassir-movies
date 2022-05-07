@@ -8,7 +8,10 @@ data class Movie(val id: Int,
                  val overview: String,
                  @SerializedName("poster_path") val imageUrl: String?,
                  @SerializedName("release_date") val releaseDate: String,
-                 @SerializedName("original_title") val title: String)
+                 @SerializedName("original_title") val title: String,
+                 @SerializedName("vote_average") val voteAverage: Float,
+                 @SerializedName("vote_count") val voteCount: Int
+)
 
 data class MovieConfig(val images: Image)
 

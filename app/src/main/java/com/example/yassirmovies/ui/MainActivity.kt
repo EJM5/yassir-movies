@@ -1,5 +1,6 @@
 package com.example.yassirmovies.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
@@ -8,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import com.example.yassirmovies.R
+import com.example.yassirmovies.data.Movie
 import com.example.yassirmovies.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity: AppCompatActivity() {
+class MainActivity: AppCompatActivity(), MovieListFragment.OnMovieListInteractionListener {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
@@ -28,7 +30,8 @@ class MainActivity: AppCompatActivity() {
 
         viewModel.movieConfigLiveData.observe(this, {
             if (!it.images.posterSizes.isNullOrEmpty()) {
-                viewModel.imageBaseUrl = it.images.baseUrl + it.images.posterSizes[0]
+                val index = it.images.posterSizes.size / 2
+                viewModel.imageBaseUrl = it.images.baseUrl + it.images.posterSizes[index]
                 viewModel.imageBaseUrl = viewModel.imageBaseUrl.replace("http:", "https:")
             }
             if (supportFragmentManager.fragments.isEmpty()) {
@@ -70,5 +73,31 @@ class MainActivity: AppCompatActivity() {
 
     private fun launchListFragment() {
         loadFragment(MovieListFragment(), MovieListFragment.tag)
+    }
+
+    private fun launchDetailsFragment() {
+        loadFragment(MovieDetailsFragment(), MovieDetailsFragment.tag)
+    }
+
+    override fun onMovieClick(movie: Movie) {
+        viewModel.movieDetailsLiveData.value = movie
+        launchDetailsFragment()
+    }
+
+    override fun onBackPressed() {
+        // Get the visible fragment. If it isn't the list fragment, load the list. If it is, close the app.
+        val currentFragment = supportFragmentManager.fragments.firstOrNull{ it != null && it.isVisible }
+        if (currentFragment?.tag != MovieListFragment.tag) {
+            launchListFragment()
+        } else {
+            sendAppToBackground()
+        }
+    }
+
+    private fun sendAppToBackground() {
+        val background = Intent()
+        background.action = Intent.ACTION_MAIN
+        background.addCategory(Intent.CATEGORY_HOME)
+        startActivity(background)
     }
 }
