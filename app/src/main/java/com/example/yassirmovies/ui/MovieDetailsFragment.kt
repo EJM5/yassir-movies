@@ -43,8 +43,7 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun setOriginalMovieDetails(movie: Movie) {
-        // TODO: Change placeholder
-        binding?.posterImage?.load(viewModel.imageBaseUrl + movie.imageUrl, R.drawable.ic_launcher_foreground)
+        binding?.posterImage?.load(viewModel.imageBaseUrl + movie.imageUrl, R.drawable.ic_movie)
         binding?.titleText?.text = movie.title
         binding?.releaseDateText?.text = movie.releaseDate
         binding?.overviewText?.text = movie.overview
@@ -56,7 +55,6 @@ class MovieDetailsFragment : Fragment() {
 
         binding?.ratingBar?.max = 100
         binding?.ratingBar?.progress = (movie.voteAverage * 10).toInt()
-        binding?.ratingBar?.animate()
         binding?.voteCountText?.text = getString(R.string.vote_count, movie.voteCount)
     }
 }

@@ -16,8 +16,7 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun setMovie(movie: Movie, baseImageUrl: String) {
         val fullImageUrl = baseImageUrl + movie.imageUrl
-        // TODO: Change placeholder
-        moviePoster.load(fullImageUrl, R.drawable.ic_launcher_foreground)
+        moviePoster.load(fullImageUrl, R.drawable.ic_movie)
 
         titleText.text = movie.title
         releaseDateText.text = movie.releaseDate

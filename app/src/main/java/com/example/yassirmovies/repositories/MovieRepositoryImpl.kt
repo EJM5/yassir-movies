@@ -1,5 +1,6 @@
 package com.example.yassirmovies.repositories
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.yassirmovies.BuildConfig
 import com.example.yassirmovies.data.Image
@@ -34,16 +35,14 @@ class MovieRepositoryImpl @Inject constructor(private val movieService: MovieSer
         val call: Call<Movie> = movieService.getMovieDetails(movieId, BuildConfig.API_KEY)
         call.enqueue(object : Callback<Movie> {
             override fun onFailure(call: Call<Movie>, t: Throwable) {
-                // TODO: implement on failure
-//                liveData.postValue(Movie())
+                 Log.e("ERROR_GET_MOVIE_DETAILS", t.toString())
             }
 
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 if (response.isSuccessful) {
                     liveData.postValue(response.body())
                 } else {
-                    // TODO: implement on failure
-                    liveData.postValue(response.body())
+                    Log.e("ERROR_GET_MOVIE_DETAILS", "Call not successful")
                 }
             }
         })
