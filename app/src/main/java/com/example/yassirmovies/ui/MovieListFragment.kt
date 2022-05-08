@@ -36,6 +36,11 @@ class MovieListFragment : Fragment(), MovieAdapter.OnMovieItemClickListener {
             setMovieList(it.results)
         })
 
+        binding?.refreshLayout?.setOnClickListener {
+            binding?.refreshLayout?.visibility = View.GONE
+            viewModel.getMovies()
+        }
+
         setProgressLoader()
         viewModel.getMovies()
     }
@@ -50,9 +55,11 @@ class MovieListFragment : Fragment(), MovieAdapter.OnMovieItemClickListener {
         binding?.progressLoader?.hide()
         if (movies.isNullOrEmpty()) {
             binding?.movieRecyclerView?.visibility = View.GONE
+            binding?.refreshLayout?.visibility = View.VISIBLE
             binding?.errorText?.visibility = View.VISIBLE
         } else {
             binding?.movieRecyclerView?.visibility = View.VISIBLE
+            binding?.refreshLayout?.visibility = View.GONE
             binding?.errorText?.visibility = View.GONE
             context?.let {
                 binding?.movieRecyclerView?.layoutManager = LinearLayoutManager(context)
