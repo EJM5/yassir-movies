@@ -7,6 +7,7 @@ In a nutshell, the application makes a few network calls to retrieve movie lists
 - Clicking on a movie from the list displays the movie details in a separate screen
 - The list includes basic movie data
 - The movie details screen includes the same data, plus an overview of the movie and some rating details.
+![Capture](https://user-images.githubusercontent.com/49279528/167297820-0c9f04e4-f7c8-45f2-87ad-6181e3320a33.PNG)
 
 ## External Frameworks and Libraries
 ### Splash Screen (for Android 12)
