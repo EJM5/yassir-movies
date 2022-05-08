@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Yassir Movies</string>
+
+    <string name="vote_count">%1$d votes</string>
+
+    <!-- Error messages -->
+    <string name="error_message">There seems to be nothing here. Make sure you have a working internet connection.</string>
 </resources>
