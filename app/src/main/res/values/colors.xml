@@ -4,6 +4,7 @@
     <color name="colorSecondary">#FE5E00</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorDarkGray">#434343</color>
     <color name="colorLightGray">#9E9E9E</color>
     <color name="colorGreen">#2FFF00</color>
     <color name="colorYellow">#FFC800</color>
